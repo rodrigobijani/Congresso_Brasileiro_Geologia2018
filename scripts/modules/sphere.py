@@ -8,7 +8,7 @@
 # Import Python libraries
 import numpy as np
 # Import my libraries
-import auxiliars as aux
+#import auxiliars as aux
 
 def sphere_bx(x, y, z, sphere, direction):
 
