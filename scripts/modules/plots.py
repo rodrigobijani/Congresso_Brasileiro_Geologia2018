@@ -32,8 +32,13 @@ def points3D(points, theta, phi, xlabel, ylabel, zlabel, model):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
-    for i in range(nf):    
-        ax.scatter(f[i,0], f[i,1], f[i,2], s=80, c = 'k', depthshade=True )
+    dens = f[3,:]
+    x = f[0,:]
+    y = f[1,:]
+    z = f[2,:]
+    p = ax.scatter(x, y, z, s=80, c = dens, depthshade=True )
+    cbar = fig.colorbar(p)
+    cbar.set_label('density ( $ kg/m^{3}$ )',fontsize=12)
     ax.set_xlabel(xlabel,fontsize=12)
     ax.set_ylabel(ylabel,fontsize=12)
     ax.set_zlabel(zlabel,fontsize=12)
