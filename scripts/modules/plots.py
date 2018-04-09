@@ -12,30 +12,28 @@ import pylab as py
 from itertools import product, combinations
 
 # read file with the coordinates of all point masses
-def points3D(x, y, z, theta, phi, xlabel, ylabel, zlabel, color, model):
+def points3D(points, theta, phi, xlabel, ylabel, zlabel, model):
     
     # function to plot 3D points in space:
-    # inputs: x,y,z = 1D arrays with coordinates of points
+    # inputs: points = list containing the x, y ,z and the density of the points. The color of the point is related to the value of density
     # phi, theta = integers to define the angle and azimuth of the box plot;
     # xlabel, ylabel, zlabel = strings with the label id:  
     # color: color of the points: ('black', 'red', 'green', 'blue', 'yellow')
     # output: figure with all points
+       
+    # function do carreirense para definir as cores das bolinhas:
     
-    if color=="black":
-        c = "k"
-    if color=="red":
-        c = "r"
-    if color=="blue":
-        c = "b"
-    if color=="yellow":
-        c = "y"
-    if color =="green":
-        c = "g"
-
-    py.rcParams['figure.figsize'] = (15.0, 10.0)#Redimensiona a figura
+    
+    
+    f = np.array(points)
+    nf = np.size(f,0)
+    
+    py.rcParams['figure.figsize'] = (15.0, 10.0) #Redimensiona a figura
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(x, y, z, s=80, c = c, depthshade=True )
+    
+    for i in range(nf):    
+        ax.scatter(f[i,0], f[i,1], f[i,2], s=80, c = 'k', depthshade=True )
     ax.set_xlabel(xlabel,fontsize=12)
     ax.set_ylabel(ylabel,fontsize=12)
     ax.set_zlabel(zlabel,fontsize=12)
@@ -44,9 +42,9 @@ def points3D(x, y, z, theta, phi, xlabel, ylabel, zlabel, color, model):
     return plt.show()
 ####################################################################################################################################
 
-def prism3D(rx, ry, rz, theta, phi, xlabel, ylabel, zlabel ,color, model):
+def prism3D(prism, theta, phi, xlabel, ylabel, zlabel ,color, model):
    # plot a 3D prism with a specific color:
-   # inputs: x,y,z = arrays with the corners of the prism to be drawn
+   # inputs: model = list with the corners of the prism to be drawn
    # color = string that indicates the color to paint the edges of the prism
    # color can be: ('black', 'red', 'blue', 'yellow', 'green')
    # phi, theta = integers to define the angle and azimuth of the box plot;
@@ -70,17 +68,23 @@ def prism3D(rx, ry, rz, theta, phi, xlabel, ylabel, zlabel ,color, model):
     if color =="green":
         c = "g"
 
+    # get the corners of the prism:    
+    r = np.array(prism)
+    rx = r[0:2] # x corners
+    ry = r[2:4] # y corners
+    rz = r[4:6] # z corners
+    
    # get ranges for plot the prism:
     x = np.zeros( (2) )
     y = np.zeros( (2) )
     z = np.zeros( (2) )
    # limits over all axis for plotting:
-    xmin = rx[0]
-    ymin = ry[0]
-    zmin = rz[0]
-    xmax = rx[1]
-    ymax = ry[1]
-    zmax = rz[1]
+    xmin = r[0]
+    ymin = r[2]
+    zmin = r[4]
+    xmax = r[1]
+    ymax = r[3]
+    zmax = r[5]
    # 50% extra for plotting the prism:
     x[0] = xmin - (0.5 * np.absolute( xmin) )
     x[1] = xmax + (0.5 * np.absolute( xmax) ) 
