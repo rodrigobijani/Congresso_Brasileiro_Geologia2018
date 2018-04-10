@@ -21,24 +21,23 @@ def points3D(points, theta, phi, xlabel, ylabel, zlabel, model):
     # color: color of the points: ('black', 'red', 'green', 'blue', 'yellow')
     # output: figure with all points
        
-    # function do carreirense para definir as cores das bolinhas:
     
-    
-    
+    # transform the list points into array:
     f = np.array(points)
     nf = np.size(f,0)
     
     py.rcParams['figure.figsize'] = (15.0, 10.0) #Redimensiona a figura
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    
-    dens = f[3,:]
-    x = f[0,:]
-    y = f[1,:]
-    z = f[2,:]
+
+    # set the properties of each point:
+    dens = f[3,:] # density
+    x = f[0,:] # x coordinate
+    y = f[1,:] # y coordinate
+    z = f[2,:] # z coordinate
     p = ax.scatter(x, y, z, s=80, c = dens, depthshade=True )
-    cbar = fig.colorbar(p)
-    cbar.set_label('density ( $ kg/m^{3}$ )',fontsize=12)
+    cbar = fig.colorbar(p, aspect=50, fraction = 0.03, orientation="vertical")
+    cbar.set_label('density ( $ kg/m^{3}$ )',fontsize=10, rotation = 90)
     ax.set_xlabel(xlabel,fontsize=12)
     ax.set_ylabel(ylabel,fontsize=12)
     ax.set_zlabel(zlabel,fontsize=12)
@@ -57,7 +56,7 @@ def prism3D(prism, theta, phi, xlabel, ylabel, zlabel ,color, model):
    # output: the plot of the 3D prism
 
     fs = 12 # font size 
-    py.rcParams['figure.figsize'] = (14.0, 10.0) #Redimensiona a figura
+    py.rcParams['figure.figsize'] = (12.0, 10.0) #Redimensiona a figura
     fig = plt.figure(1)
     ax = fig.gca(projection='3d')
     ax.set_aspect("equal")
@@ -134,3 +133,52 @@ def prism3D(prism, theta, phi, xlabel, ylabel, zlabel ,color, model):
     ax.view_init(theta, phi)
         
     return plt.show()
+
+####################################################################################################################################
+
+def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
+    """
+    Plot a rectangle.
+
+    Parameters:
+
+    * area : list = [x1, x2, y1, y2]
+        Borders of the rectangle
+    * style : str
+        String with the color and line style (as in matplotlib.pyplot.plot)
+    * linewidth : float
+        Line width
+    * fill : str
+        A color string used to fill the square. If None, the square is not
+        filled
+    * alpha : float
+        Transparency of the fill (1 >= alpha >= 0). 0 is transparent and 1 is
+        opaque
+    * label : str
+        label associated with the square.
+    * xy2ne : True or False
+        If True, will exchange the x and y axis so that the x coordinates of
+        the polygon are north. Use this when drawing on a map viewed from
+        above. If the y-axis of the plot is supposed to be z (depth), then use
+        ``xy2ne=False``.
+
+    Returns:
+
+    * axes : ``matplitlib.axes``
+        The axes element of the plot
+
+    """
+    x1, x2, y1, y2 = area
+   # if xy2ne:
+   #     x1, x2, y1, y2 = y1, y2, x1, x2
+    xs = [x1, x1, x2, x2, x1]
+    ys = [y1, y2, y2, y1, y1]
+    kwargs = {'linewidth': linewidth}
+    if label is not None:
+        kwargs['label'] = label
+    plot, = plt.plot(xs, ys, style, **kwargs)
+    if fill is not None:
+        plt.fill(xs, ys, color=fill, alpha=alpha)
+    return plot
+    
+    
