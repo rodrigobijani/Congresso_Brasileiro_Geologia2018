@@ -31,10 +31,10 @@ def points3D(points, theta, phi, xlabel, ylabel, zlabel, model):
     ax = fig.add_subplot(111, projection='3d')
 
     # set the properties of each point:
-    dens = f[3,:] # density
-    x = f[0,:] # x coordinate
-    y = f[1,:] # y coordinate
-    z = f[2,:] # z coordinate
+    dens = f[:,4] # density
+    x = f[:,0] # x coordinate (center of the sphere)
+    y = f[:,1] # y coordinate (center of the sphere)
+    z = f[:,2] # z coordinate (center of the sphere)
     p = ax.scatter(x, y, z, s=80, c = dens, depthshade=True )
     cbar = fig.colorbar(p, aspect=50, fraction = 0.03, orientation="vertical")
     cbar.set_label('density ( $ kg/m^{3}$ )',fontsize=10, rotation = 90)
