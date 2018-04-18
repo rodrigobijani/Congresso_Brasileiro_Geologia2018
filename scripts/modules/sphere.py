@@ -332,7 +332,7 @@ def sphere_gz(x, y, z, sphere):
     si2mGal = 100000.0
     
     # Compute the constant which is result due to the product
-    const = (4./3)*np.pi*rho*(radius**3)
+    const = (4./3.)*np.pi*rho*(radius**3)
     
     # Compute the distance
     r = np.sqrt(dx**2 + dy**2 + dz**2)
@@ -343,3 +343,102 @@ def sphere_gz(x, y, z, sphere):
     
     # Return the final outpu
     return gz
+
+   ###########################################################################################################################
+def sphere_gx(x, y, z, sphere):
+    '''    
+    This function calculates the gravity contribution due to a solid sphere. This is a Python 
+    implementation for the subroutine presented in Blakely (1995). On this function, there are 
+    received the value of the initial and final observation points (X and Y) and the properties 
+    of the sphere. The inputs sphere is allocated as: 
+    sphere[size = 5] = sphere[x center, y center, z center, radius , density]
+    
+    Inputs:
+    sphere - numpy array - elements of the sphere
+        sphere[0, 1, 2] - positions of the sphere center at x, y and z directions
+        sphere[3] - radius
+        sphere[4] - density value
+    Output:
+    gx - numpy array - vertical component for the gravity signal due to a solid sphere    
+    '''
+    
+    # Stablishing some conditions
+    if x.shape != y.shape:
+        raise ValueError("All inputs must have same shape!")
+    
+    # Setting the initial value
+    gx = 0.
+    
+    # Setting coordinate values
+    dx = sphere[0] - x
+    dy = sphere[1] - y
+    dz = sphere[2] - z
+    radius = sphere[3]
+    rho = sphere[4]
+    
+    # Definition for some constants
+    G = 6.673e-11
+    si2mGal = 100000.0
+    
+    # Compute the constant which is result due to the product
+    const = (4./3.)*np.pi*rho*(radius**3)
+    
+    # Compute the distance
+    r = np.sqrt(dx**2 + dy**2 + dz**2)
+    
+    # Compute the vertical component 
+    gx += const*dx/(r**3)
+    gx *= G*si2mGal
+    
+    # Return the final outpu
+    return gx
+##################################################################################################################################
+
+def sphere_gy(x, y, z, sphere):
+    '''    
+    This function calculates the gravity contribution due to a solid sphere. This is a Python 
+    implementation for the subroutine presented in Blakely (1995). On this function, there are 
+    received the value of the initial and final observation points (X and Y) and the properties 
+    of the sphere. The inputs sphere is allocated as: 
+    sphere[size = 5] = sphere[x center, y center, z center, radius , density]
+    
+    Inputs:
+    sphere - numpy array - elements of the sphere
+        sphere[0, 1, 2] - positions of the sphere center at x, y and z directions
+        sphere[3] - radius
+        sphere[4] - density value
+    Output:
+    gy - numpy array - vertical component for the gravity signal due to a solid sphere    
+    '''
+    
+    # Stablishing some conditions
+    if x.shape != y.shape:
+        raise ValueError("All inputs must have same shape!")
+    
+    # Setting the initial value
+    gy = 0.
+    
+    # Setting coordinate values
+    dx = sphere[0] - x
+    dy = sphere[1] - y
+    dz = sphere[2] - z
+    radius = sphere[3]
+    rho = sphere[4]
+    
+    # Definition for some constants
+    G = 6.673e-11
+    si2mGal = 100000.0
+    
+    # Compute the constant which is result due to the product
+    const = (4./3.)*np.pi*rho*(radius**3)
+    
+    # Compute the distance
+    r = np.sqrt(dx**2 + dy**2 + dz**2)
+    
+    # Compute the vertical component 
+    gy += const*dy/(r**3)
+    gy *= G*si2mGal
+    
+    # Return the final outpu
+    return gy
+
