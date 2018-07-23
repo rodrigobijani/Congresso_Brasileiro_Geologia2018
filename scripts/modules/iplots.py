@@ -44,7 +44,7 @@ def model_masses(area, axes):
     """
     #fig = pyplot.figure()
     #ax = fig.add_subplot(1,1,1)
-    axes.set_title('Click to define horizontal coordinates for each point mass and < e > to erase. Close fig when done.')
+    axes.set_title('Click for picking each point mass and keybord press < e > to erase. Close fig when done.')
     #if xy2ne:
      #   axes.set_xlim(area[2], area[3])
      #   axes.set_ylim(area[0], area[1])
@@ -52,6 +52,8 @@ def model_masses(area, axes):
     axes.set_xlim(area[0], area[1])
     axes.set_ylim(area[2], area[3])
     axes.grid()
+    axes.set_xlabel(' Horizontal coordinate x')
+    axes.set_ylabel(' Horizontal coordinate y')   
     line, = axes.plot([],[])
     tmpline, = axes.plot([], [])
     line.figure.canvas.draw()
