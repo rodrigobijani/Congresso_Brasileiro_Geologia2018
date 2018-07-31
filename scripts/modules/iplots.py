@@ -50,6 +50,9 @@ def model_masses(area1, area2):
             line1.set_marker('o')
             line1.set_linestyle('None')
             line1.set_data(plotx, ploty)
+            def on_press(event):
+                print('you pressed', event.button, event.xdata, event.ydata)
+            cid = fig.canvas.mpl_connect('button_press_event', on_press)
             ax1.figure.canvas.draw()      
         elif event.inaxes == ax2:
             rho.append(event.xdata)
@@ -60,6 +63,9 @@ def model_masses(area1, area2):
             line2.set_marker('*')
             line2.set_linestyle('None')
             line2.set_data(plotrho, plotz)
+                def on_press(event):
+                    print('you pressed', event.button, event.xdata, event.ydata)
+            cid = fig.canvas.mpl_connect('button_press_event', on_press)
             ax2.figure.canvas.draw()
     # --------------------------------------------------------------------------------:
     def erase(event):
@@ -83,7 +89,15 @@ def model_masses(area1, area2):
                 line2.set_linestyle('None')
                 draw_guide2(event.xdata, event.ydata)
                 ax2.figure.canvas.draw()
-    # --------------------------------------------------------------------------------:
+    # --------------------------------Counter-----------------------------------------:
+    #def on_press(event):
+    #    print('you pressed', event.button, event.xdata, event.ydata)
+    #    cid = fig.canvas.mpl_connect('button_press_event', on_press)
+    #def on_key(event):
+    #    print('you pressed', event.key, event.xdata, event.ydata)
+    #    cid = fig.canvas.mpl_connect('key_press_event', on_key)
+    
+    #---------------------------------------------------------------------------------:
 
     fig1, (ax1, ax2) = pyplot.subplots(1, 2)
     ax1.set_title('Click for picking of x y coordinates. Press keybord < e > to erase.' )
