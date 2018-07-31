@@ -27,7 +27,7 @@ def points3D(fig, points, theta, phi, area, xlabel=None, ylabel=None, zlabel=Non
     nf = np.size(f,0)
         
     # set the properties of each point:
-    dens = f[4,:] # density
+    dens = f[3,:] # density
     # r = f[3,:] # radius(not used for plotting issues)
     x = f[0,:] # x coordinate (center of the sphere)
     y = f[1,:] # y coordinate (center of the sphere)
