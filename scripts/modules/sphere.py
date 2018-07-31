@@ -37,8 +37,8 @@ def sphere_gz(x, y, z, sphere):
     dx = sphere[0] - x
     dy = sphere[1] - y
     dz = sphere[2] - z
-    radius = sphere[3]
-    rho = sphere[4]
+    radius = 1000.0 #(unitary radius for convenience in meters)  #sphere[3]
+    rho = sphere[3]
     
     # Definition for some constants
     G = 6.673e-11
@@ -86,8 +86,8 @@ def sphere_gx(x, y, z, sphere):
     dx = sphere[0] - x
     dy = sphere[1] - y
     dz = sphere[2] - z
-    radius = sphere[3]
-    rho = sphere[4]
+    radius = 1000.0 # unitary radius in meters #sphere[3]
+    rho = sphere[3]
     
     # Definition for some constants
     G = 6.673e-11
@@ -135,8 +135,8 @@ def sphere_gy(x, y, z, sphere):
     dx = sphere[0] - x
     dy = sphere[1] - y
     dz = sphere[2] - z
-    radius = sphere[3]
-    rho = sphere[4]
+    radius =  1000.0 # unitary radius in meters for convenience #sphere[3]
+    rho = sphere[3]
     
     # Definition for some constants
     G = 6.673e-11
