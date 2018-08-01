@@ -10,6 +10,9 @@ from matplotlib import pyplot, widgets
 import pylab as py
 from matplotlib.widgets import Cursor
 
+# global variables for counting the number of clicks in both axes plots:
+click1=0
+click2=0    
 def model_masses(area1, area2):
     """ Function to plant point masses by clicking with the mouse through a 3-D interpretive model. 
     Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
@@ -42,59 +45,99 @@ def model_masses(area1, area2):
     
     # --------------------------------------------------------------------------------:
     def click(event):
+        global click1, click2
         if event.inaxes == ax1:
-            x.append(event.xdata)
-            y.append(event.ydata)
-            plotx.append(event.xdata)
-            ploty.append(event.ydata)
+            # count for click instances:
+            if event.button ==1:
+                click1 +=1
+                s1 = str(click1)
+            
+            #---- append list with picked values -----:
+                x.append(event.xdata)
+                y.append(event.ydata)
+                plotx.append(event.xdata)
+                ploty.append(event.ydata)
+            
+            #-------------- plot data -------------------: 
             line1.set_color('k')
             line1.set_marker('o')
             line1.set_linestyle('None')
             line1.set_data(plotx, ploty)
-            ax1.figure.canvas.draw()      
+            
+            ax1.set_title('Number of clicks =' + s1,fontsize =12, color = 'black')
+            ax1.figure.canvas.draw()
+            
         elif event.inaxes == ax2:
+            # count for click instances:
+            if event.button ==1:
+                click2 +=1
+                s2 = str(click2)
+            
+             #---- append list with picked values:
             rho.append(event.xdata)
             z.append(event.ydata)
             plotrho.append(event.xdata)
             plotz.append(event.ydata)
+            
+            #-------------- plot data -------------------: 
             line2.set_color('b')
             line2.set_marker('*')
             line2.set_linestyle('None')
             line2.set_data(plotrho, plotz)
+            ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
             ax2.figure.canvas.draw()
-    # --------------------------------------------------------------------------------:
+             
+   # --------------------------------------------------------------------------------:
     def erase(event):
+        global click1, click2
         if event.inaxes == ax1:
             if event.key == 'e' and picking[0]:
+                # count for click instances: 
+                click1 -=1
+                s1 = str(click1)
+                    
+             #---- remove list with "unpicked" values:
                 x.pop()
                 y.pop()
                 plotx.pop()
                 ploty.pop()
-                line1.set_data(plotx, ploty)
-                line1.set_linestyle('None')
-                draw_guide1(event.xdata, event.ydata)
-                ax1.figure.canvas.draw()
+                    
+             #-------------- plot data -------------------:
+            line1.set_data(plotx, ploty)
+            line1.set_linestyle('None')
+            draw_guide1(event.xdata, event.ydata)
+ 
+            ax1.set_title('Number of clicks =' + s1, fontsize =12, color = 'black')
+            ax1.figure.canvas.draw()
+        
         elif event.inaxes == ax2:
              if event.key == 'e' and picking[0]:
+                 # count for click instances: 
+                click2 -=1
+                s2 = str(click2)
                 rho.pop()
                 z.pop()
                 plotrho.pop()
                 plotz.pop()
+                #-------------- plot data -------------------:
                 line2.set_data(plotrho, plotz)
                 line2.set_linestyle('None')
                 draw_guide2(event.xdata, event.ydata)
+                
+                ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
                 ax2.figure.canvas.draw()
     #---------------------------------------------------------------------------------:
-
+    
     fig1, (ax1, ax2) = pyplot.subplots(1, 2)
-    ax1.set_title('Click for picking of x y coordinates. Press keybord < e > to erase.' )
+    
+    fig1.suptitle('Click for x y coordinates and depth rho values.'
+                  '\n Press keybord < e > to erase undesired values.', fontsize =16)
     ax1.set_xlim(area1[0], area1[1])
     ax1.set_ylim(area1[2], area1[3])
     ax1.grid()
     ax1.set_xlabel(' Horizontal coordinate x')
     ax1.set_ylabel(' Horizontal coordinate y')
 
-    ax2.set_title('Click for picking densisty-contrast and depth Close fig when done.')
     ax2.set_xlim(area2[0], area2[1])
     ax2.set_ylim(area2[2], area2[3])
     ax2.grid()
@@ -104,9 +147,9 @@ def model_masses(area1, area2):
 
 # --------- invert axis for depth positive down --------------:
     pyplot.gca().invert_yaxis()
-    ax2.set_xlabel(' density contrast')
+    ax2.set_xlabel(' density ')
     ax2.set_ylabel(' Depth')
-    
+     
 # --------- cursor use for better visualization ------------- :
     cursor1 = Cursor(ax1, useblit=True, color='black', linewidth=2)
     cursor2 = Cursor(ax2, useblit=True, color='blue', linewidth=2)
