@@ -1,11 +1,11 @@
-# Congresso_Brasileiro_Geologia2018
+# Curso de Modelagem gravimétrica com a utilização de fontes pontuais
 
 <p align="center">
-  <img src="scripts/Image/CBG18.png" width="1050"/>
+  <img src="scripts/Image/CBG18.png" width="1000"/>
 </p>
 
 ## Objetivo
-  Criar um programa que gera modelo geofísico através do cálculo de massas pontuais.
+  Criar um programa que gera modelo geofísico através do cálculo de fontes pontuais de massa para vias de ensino e pesquisa.
 
 ## Referências online:
  
