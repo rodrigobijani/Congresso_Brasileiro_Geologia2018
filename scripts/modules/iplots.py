@@ -20,8 +20,7 @@ def model_masses(area1, area2):
     Output : x,y,z,rho = lists with the picked values from the mouse clicking. The size is related to the number of clicks
     OBS: PAY ATTENTION TO THE NUMBER OF CLICKS IN BOTH SIDES OF THE PLOT AREA. OTHERWISE THE MODEL WILL BE INCOMPLETE! 
     """
-
-    
+ 
     # ------------ auxiliar functios to perform the clicking--------------------------:
     def draw_guide1(px, py):
         if len(x) != 0 or len(y) !=0:
