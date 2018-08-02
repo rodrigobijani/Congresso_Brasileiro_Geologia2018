@@ -6,6 +6,7 @@
 
 # Import Python libraries:
 import numpy as np
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import pylab as py
@@ -174,5 +175,44 @@ def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     if fill is not None:
         plt.fill(xs, ys, color=fill, alpha=alpha)
     return plot
-    
-    
+
+
+def test_prism(ax,dike):
+    # vertices of a prism
+    x1, x2 = dike[0:2]
+    y1, y2 = dike[2:4]
+    z1, z2 = dike[4:6]
+    v = np.array([[x1, y1, z1], [x1, y2, z1], [x2, y2, z1],  [x2, y1, z1], 
+              [x1, y1, z2], [x1, y2, z2], [x2, y2, z2],  [x2, y1, z2]])
+    ax.scatter3D(v[:, 0], v[:, 1], v[:, 2])
+
+    # generate list of sides of our prism
+    verts = [[v[0],v[1],v[2],v[3]], [v[0],v[1],v[5],v[4]], [v[1],v[2],v[6],v[5]],
+         [v[2],v[3],v[7],v[6]], [v[3],v[0],v[4],v[7]], [v[4],v[5],v[6],v[7]]]
+
+    # plot sides
+    ax.add_collection3d(Poly3DCollection(verts, facecolors='red', linewidths=1, edgecolors='k', alpha=0.3))
+
+    #change size projection
+    x_scale=1.
+    y_scale=1.
+    z_scale=1.
+    scale=np.diag([x_scale, y_scale, z_scale, 1.0])
+    scale=scale*(1.0/scale.max())
+    scale[3,3]=1.0
+    def short_proj():
+        return np.dot(Axes3D.get_proj(ax), scale)
+    ax.get_proj=short_proj
+
+    #labels
+    #ax.set_xlabel('Horizontal coordinate x (m)', labelpad=20 ,fontsize=14)
+    #ax.set_ylabel('Horizontal coordinate y (m)', labelpad=20 ,fontsize=14)
+    #ax.set_zlim(-1000,40000)
+    #ax.set_zlabel('Depth (m)',labelpad=20 ,fontsize=14, rotation = 90)
+
+    #visualization angle
+    #ax.view_init(30, 10)
+    #ax.invert_zaxis()
+    #plt.tight_layout(True)
+    return ax
+   

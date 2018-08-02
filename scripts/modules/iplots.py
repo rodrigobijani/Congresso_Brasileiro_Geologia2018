@@ -18,7 +18,7 @@ def model_masses(area1, area2):
     Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
             area2= [rhomin, rhomax, zmin, zmaz] : list with density-constrast and depth ranges.
     Output : x,y,z,rho = lists with the picked values from the mouse clicking. The size is related to the number of clicks
-    OBS: PAY ATTENTION TO THE NUMBER OF CLICKS IN BOTH SIDES OF THE PLOT AREA. OTHERWISE THE MODEL WILL BE INCOMPLETE! 
+    OBS: PAY ATTENTION TO THE NUMBER OF CLICKS IN BOTH PLOT AREAS. OTHERWISE THE REMAINING CODE WILL NOT WORK! 
     """
  
     # ------------ auxiliar functios to perform the clicking--------------------------:
@@ -62,7 +62,7 @@ def model_masses(area1, area2):
             line1.set_marker('o')
             line1.set_linestyle('None')
             line1.set_data(plotx, ploty)
-            
+            # -------- display the number of clicks in the subtitle --------:
             ax1.set_title('Number of clicks =' + s1,fontsize =12, color = 'black')
             ax1.figure.canvas.draw()
             
@@ -83,6 +83,7 @@ def model_masses(area1, area2):
             line2.set_marker('*')
             line2.set_linestyle('None')
             line2.set_data(plotrho, plotz)
+            # -------- display the number of clicks in the subtitle --------:
             ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
             ax2.figure.canvas.draw()
              
@@ -105,7 +106,7 @@ def model_masses(area1, area2):
             line1.set_data(plotx, ploty)
             line1.set_linestyle('None')
             draw_guide1(event.xdata, event.ydata)
- 
+             # -------- display the number of clicks in the subtitle --------:
             ax1.set_title('Number of clicks =' + s1, fontsize =12, color = 'black')
             ax1.figure.canvas.draw()
         
@@ -122,15 +123,15 @@ def model_masses(area1, area2):
                 line2.set_data(plotrho, plotz)
                 line2.set_linestyle('None')
                 draw_guide2(event.xdata, event.ydata)
-                
+                # -------- display the number of clicks in the subtitle --------:
                 ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
                 ax2.figure.canvas.draw()
     #---------------------------------------------------------------------------------:
     
     fig1, (ax1, ax2) = pyplot.subplots(1, 2)
     
-    fig1.suptitle('Click for x y coordinates and depth rho values.'
-                  '\n Press keybord < e > to erase undesired values.', fontsize =16)
+    fig1.suptitle('Click for (x, y) coordinates and (z, rho) values.'
+                  'Press keybord < e > to erase undesired values. Close figure when done', fontsize =16)
     ax1.set_xlim(area1[0], area1[1])
     ax1.set_ylim(area1[2], area1[3])
     ax1.grid()
@@ -177,6 +178,7 @@ def model_masses(area1, area2):
     fig1.canvas.mpl_connect('key_press_event', erase )
     fig1.canvas.mpl_connect('motion_notify_event', move )
     pyplot.show()
+    
     return x,y,z,rho
 ##################################################################################################################################    
     
