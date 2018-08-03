@@ -51,7 +51,7 @@ def sphere_gz(x, y, z, sphere):
     r = np.sqrt(dx**2 + dy**2 + dz**2)
     
     # Compute the vertical component 
-    gz += const*dz/(r**3)
+    gz = const*dz/(r**3)
     gz *= G*si2mGal
     
     # Return the final outpu
@@ -100,7 +100,7 @@ def sphere_gx(x, y, z, sphere):
     r = np.sqrt(dx**2 + dy**2 + dz**2)
     
     # Compute the vertical component 
-    gx += const*dx/(r**3)
+    gx = const*dx/(r**3)
     gx *= G*si2mGal
     
     # Return the final outpu
@@ -149,7 +149,7 @@ def sphere_gy(x, y, z, sphere):
     r = np.sqrt(dx**2 + dy**2 + dz**2)
     
     # Compute the vertical component 
-    gy += const*dy/(r**3)
+    gy = const*dy/(r**3)
     gy *= G*si2mGal
     
     # Return the final outpu
