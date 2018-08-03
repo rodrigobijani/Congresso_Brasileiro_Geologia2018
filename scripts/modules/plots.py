@@ -57,79 +57,6 @@ def points3D(fig, points, theta, phi, area, xlabel=None, ylabel=None, zlabel=Non
     return plt.show()
 ###############################################################################################################################
 
-def prism3D(fig, prism, color, theta, phi, area, xlabel, ylabel, zlabel ,title):
-   # plot a 3D prism with a specific color:
-   # fig: figure box created outside of the function: An option is copy and paste the following two lines:
-   # py.rcParams['figure.figsize'] = (15.0, 10.0) #Redimensiona a figura
-   # fig = plt.figure()
-   # inputs: prism = list with the corners of the prism to be drawn
-   # color = string that indicates the color to paint the edges of the prism
-   # color can be: ('black', 'red', 'blue', 'yellow', 'green')
-   # phi, theta = integers to define the angle and azimuth of the box plot;
-   # xlabel, ylabel, zlabel = strings with the label id:  
-   # output: the plot of the 3D prism
-
-   
-    ax = fig.add_subplot(111, projection='3d')
-    fs = 15
-   
-    if color=="black":
-        c = "k"
-    if color=="red":
-        c = "r"
-    if color=="blue":
-        c = "b"
-    if color=="yellow":
-        c = "y"
-    if color =="green":
-        c = "g"
-
-    
-    x0, x1, y0, y1, z0, z1 = area
-   
-        # get the corners of the prism:    
-    r = np.array(prism)
-    rx = r[0:2] # x corners
-    ry = r[2:4] # y corners
-    rz = r[4:6] # z corners
-    
-    for s, e in combinations(np.array(list(product(rx,ry,rz))), 2):
-        
-        if np.sum(np.abs(s-e)) == ry[1]-ry[0]:
-            ax.plot3D(*zip(s,e), color=c)
-            ax.set_xlim3d(x0, x1)
-            ax.set_ylim3d(y0, y1)
-            ax.set_zlim3d(z0, z1)
-            ax.invert_zaxis()    
-      
-        if np.sum(np.abs(s-e)) == rx[1]-rx[0]:
-            ax.plot3D(*zip(s,e), color=c)
-            ax.set_xlim3d(x0, x1)
-            ax.set_ylim3d(y0, y1)
-            ax.set_zlim3d(z0, z1)
-            ax.invert_zaxis()
-
-        if np.sum(np.abs(s-e)) == rz[1]-rz[0]:
-            ax.plot3D(*zip(s,e), color=c)
-            ax.set_xlim3d(x0, x1)
-            ax.set_ylim3d(y0, y1)
-            ax.set_zlim3d(z0, z1)
-            ax.invert_zaxis() 
-    
-    ax.set_xlabel(xlabel, labelpad=25 ,fontsize=fs) # labelpad = distance between the label and the axis
-    ax.set_ylabel(ylabel, labelpad=25 ,fontsize=fs)
-    ax.set_zlabel(zlabel, labelpad=25,fontsize=fs)
-    ax.set_title(title, fontsize=fs + 3 )
-    ax.view_init(theta, phi)
-      
-    # set labelsize 
-    plt.tick_params(axis='y', labelsize=fs-3)
-    plt.tick_params(axis='x', labelsize=fs-3)
-    plt.tick_params(axis='z', labelsize=fs-3)
-          
-    return plt.show()
-
-####################################################################################################################################
 
 def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     """
@@ -177,13 +104,16 @@ def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     return plot
 
 
-def test_prism(ax,dike):
+def draw_prism(ax,dike):
     # vertices of a prism
     x1, x2 = dike[0:2]
     y1, y2 = dike[2:4]
     z1, z2 = dike[4:6]
+    
     v = np.array([[x1, y1, z1], [x1, y2, z1], [x2, y2, z1],  [x2, y1, z1], 
               [x1, y1, z2], [x1, y2, z2], [x2, y2, z2],  [x2, y1, z2]])
+    
+    # use scatter plot for plotting the vertices of the prism:
     ax.scatter3D(v[:, 0], v[:, 1], v[:, 2])
 
     # generate list of sides of our prism
@@ -204,7 +134,7 @@ def test_prism(ax,dike):
         return np.dot(Axes3D.get_proj(ax), scale)
     ax.get_proj=short_proj
 
-    #labels
+    # ----- labels (these should be used outside of the function!)
     #ax.set_xlabel('Horizontal coordinate x (m)', labelpad=20 ,fontsize=14)
     #ax.set_ylabel('Horizontal coordinate y (m)', labelpad=20 ,fontsize=14)
     #ax.set_zlim(-1000,40000)
