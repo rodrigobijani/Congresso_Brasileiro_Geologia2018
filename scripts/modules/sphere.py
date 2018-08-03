@@ -20,7 +20,7 @@ def sphere_gz(x, y, z, sphere):
     Inputs:
     sphere - numpy array - elements of the sphere
         sphere[0, 1, 2] - positions of the sphere center at x, y and z directions
-        sphere[3] - radius
+        # sphere[3] - radius -  not used in this case!
         sphere[4] - density value
     Output:
     gz - numpy array - vertical component for the gravity signal due to a solid sphere    
