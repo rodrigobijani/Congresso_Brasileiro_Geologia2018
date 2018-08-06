@@ -37,7 +37,7 @@ def sphere_gz(x, y, z, sphere):
     dx = sphere[0] - x
     dy = sphere[1] - y
     dz = sphere[2] - z
-    radius = 1000.0 #(unitary radius for convenience in meters)  #sphere[3]
+    radius = 1000.0 #sphere[3]  - 100 meters is enough for this application
     rho = sphere[3]
     
     # Definition for some constants
