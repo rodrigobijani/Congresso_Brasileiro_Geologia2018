@@ -14,9 +14,10 @@ from matplotlib.widgets import Cursor
 click1=0
 click2=0    
 def model_masses(area1, area2):
-    """ Function to plant point masses by clicking with the mouse through a 3-D interpretive model. 
+    """ Function to plant point masses by clicking with the mouse through a 2-D interpretive model. 
     Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
             area2= [rhomin, rhomax, zmin, zmaz] : list with density-constrast and depth ranges.
+           
     Output : x,y,z,rho = lists with the picked values from the mouse clicking. The size is related to the number of clicks
     OBS: PAY ATTENTION TO THE NUMBER OF CLICKS IN BOTH PLOT AREAS. OTHERWISE THE REMAINING CODE WILL NOT WORK! 
     """
@@ -45,6 +46,8 @@ def model_masses(area1, area2):
     # --------------------------------------------------------------------------------:
     def click(event):
         global click1, click2
+        s1 = []
+        s2 = []
         if event.inaxes == ax1:
             # count for click instances:
             if event.button ==1:
@@ -90,6 +93,8 @@ def model_masses(area1, area2):
    # --------------------------------------------------------------------------------:
     def erase(event):
         global click1, click2
+        s1 =[]
+        s2 = []
         if event.inaxes == ax1:
             if event.key == 'e' and picking[0]:
                 # count for click instances: 
@@ -165,6 +170,9 @@ def model_masses(area1, area2):
     rho = []
     plotz = []
     plotrho = []
+    
+    s1 = []
+    s2 = []
 # ----------------- cleaning line object for plotting ------------------:
     line1, = ax1.plot([],[])
     tmpline1, = ax1.plot([],[])
