@@ -1,2 +1,0 @@
-xmin xmax ymin ymax zmin zmax density(kg/m3)
--500.0 500.0 -500.0 500.0 2000.0 5000.0 2900.0
