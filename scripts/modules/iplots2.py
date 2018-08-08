@@ -11,8 +11,6 @@ import pylab as py
 from matplotlib.widgets import Cursor
 
 # global variables for counting the number of clicks in both axes plots:
-click1=0
-click2=0    
 def model_masses(area1, area2):
     """ Function to plant point masses by clicking with the mouse through a 2-D interpretive model. 
     Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
@@ -45,20 +43,13 @@ def model_masses(area1, area2):
     
     # --------------------------------------------------------------------------------:
     def click(event):
-        global click1, click2
-        s1 = []
-        s2 = []
         if event.inaxes == ax1:
-            # count for click instances:
-            if event.button ==1:
-                click1 +=1
-                s1 = str(click1)
-            
+            s1 = add_click(event, click1)
             #---- append list with picked values -----:
-                x.append(event.xdata)
-                y.append(event.ydata)
-                plotx.append(event.xdata)
-                ploty.append(event.ydata)
+            x.append(event.xdata)
+            y.append(event.ydata)
+            plotx.append(event.xdata)
+            ploty.append(event.ydata)
             
             #-------------- plot data -------------------: 
             line1.set_color('k')
@@ -70,12 +61,10 @@ def model_masses(area1, area2):
             ax1.figure.canvas.draw()
             
         elif event.inaxes == ax2:
-            # count for click instances:
-            if event.button ==1:
-                click2 +=1
-                s2 = str(click2)
-            
-             #---- append list with picked values:
+            # count for the number of clicks:
+            s2 = add_click(event, click2)
+             
+            #---- append list with picked values:
             rho.append(event.xdata)
             z.append(event.ydata)
             plotrho.append(event.xdata)
@@ -92,20 +81,13 @@ def model_masses(area1, area2):
              
    # --------------------------------------------------------------------------------:
     def erase(event):
-        global click1, click2
-        s1 =[]
-        s2 = []
         if event.inaxes == ax1:
-            if event.key == 'e' and picking[0]:
-                # count for click instances: 
-                click1 -=1
-                s1 = str(click1)
-                    
-             #---- remove list with "unpicked" values:
-                x.pop()
-                y.pop()
-                plotx.pop()
-                ploty.pop()
+            s1 = remove_click(event, click1)
+            #---- remove list with "unpicked" values:
+            x.pop()
+            y.pop()
+            plotx.pop()
+            ploty.pop()
                     
              #-------------- plot data -------------------:
             line1.set_data(plotx, ploty)
@@ -116,21 +98,35 @@ def model_masses(area1, area2):
             ax1.figure.canvas.draw()
         
         elif event.inaxes == ax2:
-             if event.key == 'e' and picking[0]:
-                 # count for click instances: 
-                click2 -=1
-                s2 = str(click2)
-                rho.pop()
-                z.pop()
-                plotrho.pop()
-                plotz.pop()
-                #-------------- plot data -------------------:
-                line2.set_data(plotrho, plotz)
-                line2.set_linestyle('None')
-                draw_guide2(event.xdata, event.ydata)
-                # -------- display the number of clicks in the subtitle --------:
-                ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
-                ax2.figure.canvas.draw()
+            
+            # count for the removal of points:
+            s2 = remove_click(event, click2)
+            rho.pop()
+            z.pop()
+            plotrho.pop()
+            plotz.pop()
+            #-------------- plot data -------------------:
+            line2.set_data(plotrho, plotz)
+            line2.set_linestyle('None')
+            draw_guide2(event.xdata, event.ydata)
+            # -------- display the number of clicks in the subtitle --------:
+            ax2.set_title('Number of clicks =' + s2, fontsize =12, color = 'blue')
+            ax2.figure.canvas.draw()
+    #---------------------------------------------------------------------------------:
+    
+    def add_click(event, click):
+        if event.button==1:
+            click+=1
+            s=str(click)
+        return s
+    
+    #---------------------------------------------------------------------------------:
+    def remove_click(event, click):
+        if event.key=='e' and picking[0]:
+            click-=1
+            s = str(click)
+        return s
+    
     #---------------------------------------------------------------------------------:
     
     fig1, (ax1, ax2) = pyplot.subplots(1, 2)
@@ -173,6 +169,8 @@ def model_masses(area1, area2):
     
     s1 = []
     s2 = []
+    click1 = 0
+    click2 = 0
 # ----------------- cleaning line object for plotting ------------------:
     line1, = ax1.plot([],[])
     tmpline1, = ax1.plot([],[])
@@ -185,8 +183,9 @@ def model_masses(area1, area2):
     fig1.canvas.mpl_connect('button_press_event', click )
     fig1.canvas.mpl_connect('key_press_event', erase )
     fig1.canvas.mpl_connect('motion_notify_event', move )
+    #fig1.canvas.mpl_disconnect(cid1)
+    #fig1.canvas.mpl_disconnect(cid2)
     pyplot.show()
-    
     return x,y,z,rho
 ##################################################################################################################################    
     

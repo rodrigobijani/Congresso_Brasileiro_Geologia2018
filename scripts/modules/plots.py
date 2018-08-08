@@ -114,27 +114,30 @@ def draw_prism(ax,dike):
               [x1, y1, z2], [x1, y2, z2], [x2, y2, z2],  [x2, y1, z2]])
     
     # use scatter plot for plotting the vertices of the prism:
-    ax.scatter3D(v[:, 0], v[:, 1], v[:, 2])
+    #ax.scatter3D(v[:, 0], v[:, 1], v[:, 2])
 
     # generate list of sides of our prism
     verts = [[v[0],v[1],v[2],v[3]], [v[0],v[1],v[5],v[4]], [v[1],v[2],v[6],v[5]],
          [v[2],v[3],v[7],v[6]], [v[3],v[0],v[4],v[7]], [v[4],v[5],v[6],v[7]]]
 
     # plot sides
-    ax.add_collection3d(Poly3DCollection(verts, facecolors='red', linewidths=1, edgecolors='k', alpha=0.3))
+    pc = Poly3DCollection(verts, alpha=0.5, linewidths=0.5, edgecolors='k')
+    pc.set_facecolor('red')
+    ax.add_collection3d( pc )
 
+    # ------------ ALL THE ABOVE SHOULD BE PLACED IMMEDIATELY AFTER THE CALLING OF THE FUNCTION----------#
     #change size projection
-    x_scale=1.
-    y_scale=1.
-    z_scale=1.
-    scale=np.diag([x_scale, y_scale, z_scale, 1.0])
-    scale=scale*(1.0/scale.max())
-    scale[3,3]=1.0
-    def short_proj():
-        return np.dot(Axes3D.get_proj(ax), scale)
-    ax.get_proj=short_proj
+    #x_scale=1.
+    #y_scale=1.
+    #z_scale=1.
+    #scale=np.diag([x_scale, y_scale, z_scale, 1.0])
+    #scale=scale*(1.0/scale.max())
+    #scale[3,3]=1.0
+    #def short_proj():
+    #    return np.dot(Axes3D.get_proj(ax), scale)
+    #ax.get_proj=short_proj
 
-    # ----- labels (these should be used outside of the function!)
+    # ----- labels (all these should be used outside of the function!)
     #ax.set_xlabel('Horizontal coordinate x (m)', labelpad=20 ,fontsize=14)
     #ax.set_ylabel('Horizontal coordinate y (m)', labelpad=20 ,fontsize=14)
     #ax.set_zlim(-1000,40000)
