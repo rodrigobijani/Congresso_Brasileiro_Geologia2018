@@ -12,8 +12,6 @@ from matplotlib.widgets import Cursor
 from plots import rectangle
 
 # global variables for counting the number of clicks in both axes plots:
-click1=0
-click2=0    
 def model_masses(area1, area2, edges=None):
     
     """ Function to plant point masses by clicking with the mouse through a 2-D interpretive model. 
