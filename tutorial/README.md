@@ -49,7 +49,7 @@ Clique em [Anaconda](https://www.continuum.io/) para ser redirecionado para a p√
 * Abra um terminal utilizando o Anaconda Prompt, localizado no topo do menu INICIAR:
 
 <p align="center">
-  <img src="Images/tut09.png" width="550"/>
+  <img src="Images/tut09.png" width="450"/>
 </p>
 
 * digite o seguinte comando:
