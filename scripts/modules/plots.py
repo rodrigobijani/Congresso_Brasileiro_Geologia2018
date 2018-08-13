@@ -58,7 +58,7 @@ def points3D(fig, points, theta, phi, area, xlabel=None, ylabel=None, zlabel=Non
 ###############################################################################################################################
 
 
-def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
+def rectangle(ax, area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     """
     Plot a rectangle over a contour map.
 
@@ -98,10 +98,10 @@ def rectangle(area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     kwargs = {'linewidth': linewidth}
     if label is not None:
         kwargs['label'] = label
-    plot, = plt.plot(xs, ys, style, **kwargs)
+    plot, = ax.plot(xs, ys, style, **kwargs)
     if fill is not None:
-        plt.fill(xs, ys, color=fill, alpha=alpha)
-    return plot
+        ax.fill(xs, ys, color=fill, alpha=alpha)
+    return ax
 
 
 def draw_prism(ax,dike):
