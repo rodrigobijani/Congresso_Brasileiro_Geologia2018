@@ -12,7 +12,7 @@ from matplotlib.widgets import Cursor
 from plots import rectangle
 
 # global variables for counting the number of clicks in both axes plots:
-def model_masses(area1, area2, edges=None):
+def model_masses(area1, area2, dike=None):
     
     """ Function to plant point masses by clicking with the mouse through a 2-D interpretive model. 
     Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
@@ -62,6 +62,7 @@ def model_masses(area1, area2, edges=None):
             line1.set_data(plotx, ploty)
             # -------- display the number of clicks in the subtitle --------:
             ax1.set_title('Number of clicks ='+ str( len(click1) ),fontsize =12, color = 'black')
+            
             ax1.figure.canvas.draw()
             
         elif event.inaxes == ax2:
@@ -131,7 +132,13 @@ def model_masses(area1, area2, edges=None):
     ax1.grid()
     ax1.set_xlabel(' Horizontal coordinate x')
     ax1.set_ylabel(' Horizontal coordinate y')
-
+    
+    # check for optional input:
+    if dike !=None:
+        rectangle(ax1, dike[0:4], style='-r', linewidth=1, fill=None, alpha=1., label=None)
+        zm = 0.5*( dike[4] + dike[5] )
+        ax2.scatter(dike[6], zm, s=100, c = 'green' )
+        
     ax2.set_xlim(area2[0], area2[1])
     ax2.set_ylim(area2[2], area2[3])
     ax2.grid()
