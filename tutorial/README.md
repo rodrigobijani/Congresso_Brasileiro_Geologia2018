@@ -107,4 +107,27 @@ OBS: É necessário que o arquivo "Anaconda2-5.2.0-Linux-x86_64.sh" esteja na pa
 
 # Pacotes Extras: BASEMAP
 
-O Basemap é um pacote open source que compila diversas fontes de dados de mapas. Para instalá-lo o usuário deve digitar no terminal "conda install basemap".
+O Basemap é um pacote open source que compila diversas fontes de dados de mapas. Para instalá-lo  em versões do ubuntu 16.04 LTS ou superiores o usuário deve digitar no terminal 
+
+* conda install basemap
+
+E para baixar a base de dados de mapas
+
+* pip install --user https://github.com/matplotlib/basemap/archive/master.zip
+
+Caso o pacote não seja instalado mediante o procedimento acima o usuário deverá seguir os seguintes passos.
+
+* sudo apt-get install python-matplotlib
+
+* sudo apt-get update
+
+* sudo apt-get python-pyproj
+
+* conda install -c conda-forge proj4
+
+* sudo apt-get install libgeos-3.4.2               (ubuntu 14.04 LTS 64bits)
+
+* sudo apt-get install libgeos-dev
+
+* pip install --user https://github.com/matplotlib/basemap/archive/master.zip
+
