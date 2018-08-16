@@ -1,21 +1,20 @@
 # --------------------------------------------------------------------------------------------------
 # Title: Grav-Mag Codes
 # Author: Nelson Ribeiro Filho
-# Description: Source codes that will be necessary during the masters course.
-# Collaborator: Rodrigo Bijani
+# Description: Source codes 
+# Collaboratores: Rodrigo Bijani, Victor Carreira
 # --------------------------------------------------------------------------------------------------
 
-# Import Python libraries
+# -------- Import Python internal libraries ---------
 import numpy as np
-# Import my libraries
-#import auxiliars as aux
+
 def sphere_gz(x, y, z, sphere):
     '''    
     This function calculates the gravity contribution due to a solid sphere. This is a Python 
     implementation for the subroutine presented in Blakely (1995). On this function, there are 
     received the value of the initial and final observation points (X and Y) and the properties 
     of the sphere. The inputs sphere is allocated as: 
-    sphere[size = 5] = sphere[x center, y center, z center, radius , density]
+    sphere[size = 4] = sphere[x center, y center, z center, density]
     
     Inputs:
     sphere - numpy array - elements of the sphere
@@ -64,12 +63,12 @@ def sphere_gx(x, y, z, sphere):
     implementation for the subroutine presented in Blakely (1995). On this function, there are 
     received the value of the initial and final observation points (X and Y) and the properties 
     of the sphere. The inputs sphere is allocated as: 
-    sphere[size = 5] = sphere[x center, y center, z center, radius , density]
+    sphere[size = 4] = sphere[x center, y center, z center, density]
     
     Inputs:
     sphere - numpy array - elements of the sphere
         sphere[0, 1, 2] - positions of the sphere center at x, y and z directions
-        sphere[3] - radius
+        sphere[3] - radius (In this case, the radius was fixed for convenience)
         sphere[4] - density value
     Output:
     gx - numpy array - vertical component for the gravity signal due to a solid sphere    
@@ -113,7 +112,7 @@ def sphere_gy(x, y, z, sphere):
     implementation for the subroutine presented in Blakely (1995). On this function, there are 
     received the value of the initial and final observation points (X and Y) and the properties 
     of the sphere. The inputs sphere is allocated as: 
-    sphere[size = 5] = sphere[x center, y center, z center, radius , density]
+    sphere[size = 4] = sphere[x center, y center, z center , density]
     
     Inputs:
     sphere - numpy array - elements of the sphere
