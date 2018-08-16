@@ -12,11 +12,15 @@ from matplotlib.widgets import Cursor
 from plots import rectangle
 
 # global variables for counting the number of clicks in both axes plots:
-def model_masses(area1, area2, dike=None):
+def model_masses(area1, area2, newclicks=None, dike=None):
     
     """ Function to plant point masses by clicking with the mouse through a 2-D interpretive model. 
-    Inputs: area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
-            area2= [rhomin, rhomax, zmin, zmaz] : list with density-constrast and depth ranges.
+    Inputs: 
+    * area1 = [xmin, xmax, ymin, ymax] : list with horizontal coordinate ranges.
+    * area2 = [rhomin, rhomax, zmin, zmaz] : list with density-constrast and depth ranges.
+    * newclicks[x,y,z,rho] = optional list with all previous clicks 
+    * dike[x1,x2,y1,y2,z1,z2,density] = optional list with info about a dike to be plugged into the clicking window plot.
+    
            
     Output : x,y,z,rho = lists with the picked values from the mouse clicking. The size is related to the number of clicks
     OBS: PAY ATTENTION TO THE NUMBER OF CLICKS IN BOTH PLOT AREAS. OTHERWISE THE REMAINING CODE WILL NOT WORK! 
@@ -155,7 +159,7 @@ def model_masses(area1, area2, dike=None):
     cursor1 = Cursor(ax1, useblit=True, color='black', linewidth=2)
     cursor2 = Cursor(ax2, useblit=True, color='blue', linewidth=2)
 
-# -------------- cleaning lists before using -----------------:
+    # ----- for the case of new clicks -------:
     x = []
     y = []
     z = []
@@ -174,6 +178,11 @@ def model_masses(area1, area2, dike=None):
     line2, = ax2.plot([],[])
     tmpline2, = ax2.plot([],[])
 
+# -------------- cleaning lists before using -----------------:
+    # check for optional input:       
+    if newclicks!=None:
+        x,y,z,rho = newclicks
+    
 # ------------ Hack because Python 2 doesn't like nonlocal variables that change value -------:
 # Lists it doesn't mind.
     picking = [True]
