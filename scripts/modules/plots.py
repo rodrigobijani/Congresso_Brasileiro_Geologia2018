@@ -12,55 +12,10 @@ import matplotlib.pyplot as plt
 import pylab as py
 from itertools import product, combinations
 
-# read file with the coordinates of all point masses
-def points3D(fig, points, theta, phi, area, xlabel=None, ylabel=None, zlabel=None, title=None):
-    
-    # function to plot 3D points in space:
-    # inputs: points = list containing the x, y ,z and the density of the points. The color of the point is related to the value of density
-    # phi, theta = integers to define the angle and azimuth of the box plot;
-    # xlabel, ylabel, zlabel = strings with the label id:  
-    # output: figure with all points
-     
-    ax = fig.add_subplot(111, projection='3d')
-    
-    # transform the list points into array:
-    f = np.array(points)
-    nf = np.size(f,0)
-        
-    # set the properties of each point:
-    dens = f[3,:] # density
-    # r = f[3,:] # radius(not used for plotting issues)
-    x = f[0,:] # x coordinate (center of the sphere)
-    y = f[1,:] # y coordinate (center of the sphere)
-    z = f[2,:] # z coordinate (center of the sphere)
-    p = ax.scatter(x, y, z, s=80, c = dens, depthshade=True )
-    cbar = fig.colorbar(p, aspect=50, fraction = 0.03, orientation="vertical")
-    cbar.set_label('density-constrast ( $ kg/m^{3}$ )',fontsize=10, rotation = 90)
-    
-    #if area==True:
-    x0, x1, y0, y1, z0, z1 = area
-    ax.set_xlim3d(x0, x1)
-    ax.set_ylim3d(y0, y1)
-    ax.set_zlim3d(z0, z1)
-    # z points downward:
-    ax.invert_zaxis()
-    ax.view_init(theta, phi)    
-    #if xlabel==True:
-    ax.set_xlabel(xlabel, labelpad=25, fontsize=12)
-    #if ylabel==True:
-    ax.set_ylabel(ylabel, labelpad=25, fontsize=12)
-   # if zlabel == True:
-    ax.set_zlabel(zlabel, labelpad=25, fontsize=12)
-   # if title == True:
-    ax.set_title(title, fontsize=17)
-      
-    return plt.show()
-###############################################################################################################################
-
-
+######################################################################################################
 def rectangle(ax, area, style='-k', linewidth=1, fill=None, alpha=1., label=None):
     """
-    Plot a rectangle over a contour map.
+    Plot a rectangle in a ax plotbox.
 
     Parameters:
 
@@ -105,6 +60,22 @@ def rectangle(ax, area, style='-k', linewidth=1, fill=None, alpha=1., label=None
 
 
 def draw_prism(ax,dike):
+    
+    """
+    Plot a 3D view of the input dike in a ax plotbox.
+
+    Parameters:
+
+    * ax : box plot where figure goes
+    
+    * dike[size=0,6]: list with the corners and the dike and the density at last position.    
+      dike[x1,x2,y1,y2,z1,z2,density] # all in SI
+    
+    Returns:
+    * ax : ``matplitlib.axes``
+        The axes element of the plot
+
+    """
     # vertices of a prism
     x1, x2 = dike[0:2]
     y1, y2 = dike[2:4]
@@ -121,7 +92,7 @@ def draw_prism(ax,dike):
          [v[2],v[3],v[7],v[6]], [v[3],v[0],v[4],v[7]], [v[4],v[5],v[6],v[7]]]
 
     # plot sides
-    pc = Poly3DCollection(verts, alpha=0.5, linewidths=0.5, edgecolors='k')
+    pc = Poly3DCollection(verts, alpha=0.3, linewidths=0.5, edgecolors='k')
     pc.set_facecolor('red')
     ax.add_collection3d( pc )
 
@@ -138,8 +109,8 @@ def draw_prism(ax,dike):
     #ax.get_proj=short_proj
 
     # ----- labels (all these should be used outside of the function!)
-    #ax.set_xlabel('Horizontal coordinate x (m)', labelpad=20 ,fontsize=14)
-    #ax.set_ylabel('Horizontal coordinate y (m)', labelpad=20 ,fontsize=14)
+    #ax.set_xlabel('Label here', labelpad=20 ,fontsize=14)
+    #ax.set_ylabel('Label here', labelpad=20 ,fontsize=14)
     #ax.set_zlim(-1000,40000)
     #ax.set_zlabel('Depth (m)',labelpad=20 ,fontsize=14, rotation = 90)
 
