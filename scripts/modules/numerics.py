@@ -10,7 +10,6 @@ def addnoise(data, v0, std):
     If data is a numpy 1D array whit N elements, this function returns a simple length N vector, 
     else it returns a 2D array with NM elements.    
     '''
-    
     assert np.min(data) <= np.mean(data), 'Mean must be greater than minimum'
     assert np.max(data) >= np.mean(data), 'Maximum must be greater than mean'
     assert std <= 10., 'Noise must not be greater than 1'
